@@ -1,11 +1,18 @@
-.mainImg {
-  width: 100%;
-}
-
-.reservationSection {
+.mainContent {
   height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-image: url("../../assets/images/mainImage.jpg");
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.bookingContent {
+  border-radius: 15px;
+  width: 75%;
+  height: 175px;
+  background-color: #fff;
 }

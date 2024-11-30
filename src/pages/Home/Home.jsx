@@ -2,10 +2,10 @@ import styles from "./Home.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.mainContent}>
-      <div className={styles.reservationSection}>
-        <p>Here goes a reservation controller</p>
+    <section className={styles.mainContent}>
+      <div className={styles.bookingContent}>
+        <p>Reservations</p>
       </div>
-    </div>
+    </section>
   );
 }
