@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div>
-        <h1>Logo del hostel</h1>
+        <p>Logo del hostel</p>
       </div>
       <nav>
         <ul className={styles.navList}>

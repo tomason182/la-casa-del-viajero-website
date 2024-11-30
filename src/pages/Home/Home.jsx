@@ -1,7 +1,11 @@
+import styles from "./Home.module.css";
+
 export default function Home() {
   return (
-    <div>
-      <h1>This is the home page of the page</h1>
+    <div className={styles.mainContent}>
+      <div className={styles.reservationSection}>
+        <p>Here goes a reservation controller</p>
+      </div>
     </div>
   );
 }
