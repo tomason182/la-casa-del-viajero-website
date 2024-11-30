@@ -1,6 +1,6 @@
 .mainContent {
   position: relative;
-  height: 500px;
+  height: 65lvh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -10,7 +10,7 @@
 
 .bookingContent {
   position: absolute;
-  bottom: -3rem;
+  bottom: -5rem;
   left: 50%;
   transform: translate(-50%);
   box-shadow: 1px 1px 1px 0.1px rgba(0, 0, 0, 0.2);
@@ -18,11 +18,28 @@
   padding: 1rem 2rem;
   text-align: left;
   width: 75%;
-  height: 175px;
+  height: 25lvh;
   background-color: #fff;
 }
 
 .about {
-  padding: 7rem 0;
-  background-color: aliceblue;
+  padding: 6rem 1.5rem;
+  background-color: #f2f2f2;
+}
+
+.about p {
+  margin: 2rem auto;
+  max-width: 75rem;
+}
+
+.about button {
+  padding: 0.5rem 2rem;
+}
+
+.backgroundImg {
+  background-image: url("../../assets/images/entorno.jpg");
+  height: 75lvh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
