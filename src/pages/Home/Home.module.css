@@ -1,18 +1,28 @@
 .mainContent {
+  position: relative;
   height: 500px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-image: url("../../assets/images/mainImage.jpg");
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   padding-bottom: 2rem;
 }
 
 .bookingContent {
+  position: absolute;
+  bottom: -3rem;
+  left: 50%;
+  transform: translate(-50%);
+  box-shadow: 1px 1px 1px 0.1px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
+  padding: 1rem 2rem;
+  text-align: left;
   width: 75%;
   height: 175px;
   background-color: #fff;
+}
+
+.about {
+  padding: 7rem 0;
+  background-color: aliceblue;
 }
