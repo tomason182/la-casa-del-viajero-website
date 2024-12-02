@@ -1,20 +1,25 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./Home.module.css";
-import entorno from "../../assets/images/entorno.jpg";
-import ambiente from "../../assets/images/ambiente.jpg";
+import entorno from "../../assets/images/entorno.png";
+import ambiente from "../../assets/images/ambiente.png";
 import refugio_1 from "../../assets/images/cuartos/refugio_1.jpg";
-import refugio_2 from "../../assets/images/cuartos/refugio_2.jpg";
-import refugio_3 from "../../assets/images/cuartos/refugio_3.jpg";
-import refugio_4 from "../../assets/images/cuartos/refugio_4.jpg";
-import refugio_5 from "../../assets/images/cuartos/refugio_5.jpg";
-import refugio_6 from "../../assets/images/cuartos/refugio_6.jpg";
-import ranchito_1 from "../../assets/images/cuartos/ranchito_1.jpg";
-import ranchito_2 from "../../assets/images/cuartos/ranchito_2.jpg";
-import ranchito_3 from "../../assets/images/cuartos/ranchito_3.jpg";
-import ranchito_4 from "../../assets/images/cuartos/ranchito_4.jpg";
-import ranchito_5 from "../../assets/images/cuartos/ranchito_5.jpg";
-import ranchito_6 from "../../assets/images/cuartos/ranchito_6.jpg";
+import refugio_2 from "../../assets/images/cuartos/refugio_2.png";
+import refugio_3 from "../../assets/images/cuartos/refugio_3.png";
+import refugio_4 from "../../assets/images/cuartos/refugio_4.png";
+import refugio_5 from "../../assets/images/cuartos/refugio_5.png";
+import refugio_6 from "../../assets/images/cuartos/refugio_6.png";
+import ranchito_1 from "../../assets/images/cuartos/ranchito_1.png";
+import ranchito_2 from "../../assets/images/cuartos/ranchito_2.png";
+import ranchito_3 from "../../assets/images/cuartos/ranchito_3.png";
+import ranchito_4 from "../../assets/images/cuartos/ranchito_4.png";
+import ranchito_5 from "../../assets/images/cuartos/ranchito_5.png";
+import ranchito_6 from "../../assets/images/cuartos/ranchito_6.png";
+import ranchito_7 from "../../assets/images/cuartos/ranchito_7.png";
+import casita_1 from "../../assets/images/cuartos/casita_1.png";
+import casita_2 from "../../assets/images/cuartos/casita_2.png";
+import casita_3 from "../../assets/images/cuartos/casita_3.png";
+import casita_4 from "../../assets/images/cuartos/casita_4.png";
 
 export default function Home() {
   const refugioList = [
@@ -33,7 +38,10 @@ export default function Home() {
     ranchito_4,
     ranchito_5,
     ranchito_6,
+    ranchito_7,
   ];
+
+  const casitaList = [casita_1, casita_2, casita_3, casita_4];
 
   return (
     <>
@@ -55,7 +63,7 @@ export default function Home() {
       </section>
       <section className={styles.grid}>
         <div className={styles.image}>
-          <img src={entorno} alt="La casa del viajero" />
+          <img src={ambiente} alt="La casa del viajero" />
         </div>
         <div className={styles.content}>
           <h2>Entorno</h2>
@@ -82,7 +90,7 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.image}>
-          <img src={ambiente} alt="La casa del viajero - magica y natural" />
+          <img src={entorno} alt="La casa del viajero - magica y natural" />
         </div>
       </section>
       <section>
@@ -97,6 +105,7 @@ export default function Home() {
             <h3>El ranchito</h3>
           </div>
           <div className={styles.cuarto}>
+            <Carousel images={casitaList} />
             <h3>La casita</h3>
           </div>
         </div>

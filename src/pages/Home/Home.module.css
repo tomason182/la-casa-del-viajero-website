@@ -46,14 +46,12 @@
 }
 
 .image {
-  max-width: 640px;
-  max-height: 360px;
   overflow: hidden;
+  width: 100%;
 }
 
 .image img {
   width: 100%;
-  height: auto;
   display: block;
   object-fit: cover;
 }
@@ -68,12 +66,12 @@
 .cuarto {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .carousel {
   position: relative;
   display: inline-block;
-  height: 350px;
 }
 
 .carousel img {
