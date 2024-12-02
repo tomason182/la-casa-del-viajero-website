@@ -29,17 +29,56 @@
 
 .about p {
   margin: 2rem auto;
-  max-width: 75rem;
+  max-width: 55rem;
 }
 
 .about button {
   padding: 0.5rem 2rem;
 }
 
-.backgroundImg {
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .image {
   background-image: url("../../assets/images/entorno.jpg");
   height: 75lvh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+} */
+
+.image {
+  max-width: 640px;
+  max-height: 360px;
+  overflow: hidden;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.cuartosContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.cuarto {
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel {
+  position: relative;
+  height: 350px;
 }
