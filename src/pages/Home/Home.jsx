@@ -17,8 +17,6 @@ import ranchito_5 from "../../assets/images/cuartos/ranchito_5.jpg";
 import ranchito_6 from "../../assets/images/cuartos/ranchito_6.jpg";
 
 export default function Home() {
-  const [currentIndex, setCurrentIndex] = useState(1);
-
   const refugioList = [
     refugio_1,
     refugio_2,
@@ -91,11 +89,11 @@ export default function Home() {
         <h2>Nuestros cuartos</h2>
         <div className={styles.cuartosContainer}>
           <div className={styles.cuarto}>
-            <Carousel images={refugioList} currentIndex={currentIndex} />
+            <Carousel images={refugioList} />
             <h3>El refugio</h3>
           </div>
           <div className={styles.cuarto}>
-            <Carousel images={ranchitoList} currentIndex={currentIndex} />
+            <Carousel images={ranchitoList} />
             <h3>El ranchito</h3>
           </div>
           <div className={styles.cuarto}>
@@ -111,13 +109,13 @@ const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   function handlePrev() {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   }
 
   function handleNext() {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   }
@@ -127,12 +125,12 @@ const Carousel = ({ images }) => {
       <button className={styles.arrowLeft} onClick={handlePrev}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="32"
+          height="32"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000"
-          strokeWidth="2"
+          stroke="#f5f5f5"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -142,12 +140,12 @@ const Carousel = ({ images }) => {
       <button className={styles.arrowRight} onClick={handleNext}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
+          width="32"
+          height="32"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#000"
-          strokeWidth="2"
+          stroke="#f5f5f5"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -161,7 +159,7 @@ const Carousel = ({ images }) => {
           alt={`Slide ${index}`}
           style={{
             opacity: index === currentIndex ? 1 : 0,
-            visibility: index === currentIndex ? "visible" : "hidden",
+            display: index === currentIndex ? "block" : "none",
             transition: "opacity 0.5s ease, visibility 0.5s ease",
           }}
         />
@@ -172,5 +170,4 @@ const Carousel = ({ images }) => {
 
 Carousel.propTypes = {
   images: PropTypes.array.isRequired,
-  currentIndex: PropTypes.number.isRequired,
 };

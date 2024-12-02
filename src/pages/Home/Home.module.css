@@ -83,9 +83,12 @@
 
 .carousel button {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
   border: none;
   border-radius: 50%;
   width: 3rem;
