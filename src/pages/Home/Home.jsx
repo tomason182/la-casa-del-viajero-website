@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Location from "../../components/Location/Location";
+import AvailabilityForm from "../../components/Forms/AvailabilityForm";
 import styles from "./Home.module.css";
 import entorno from "../../assets/images/entorno.png";
 import ambiente from "../../assets/images/ambiente.png";
@@ -43,11 +45,17 @@ export default function Home() {
 
   const casitaList = [casita_1, casita_2, casita_3, casita_4];
 
+  const hostelInfo = {
+    address: "Av. Las Flores 4220",
+    phone: "294 - 4xxx - xxxx",
+  };
+
   return (
     <>
       <section className={styles.mainContent}>
         <div className={styles.bookingContent}>
           <h2>Reservá tu próxima estadia</h2>
+          <AvailabilityForm />
         </div>
       </section>
       <section className={styles.about}>
@@ -109,6 +117,9 @@ export default function Home() {
             <h3>La casita</h3>
           </div>
         </div>
+      </section>
+      <section>
+        <Location address={hostelInfo.address} phone={hostelInfo.phone} />
       </section>
     </>
   );
