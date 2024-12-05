@@ -1,5 +1,6 @@
 import styles from "./AvailabilityForm.module.css";
 import { useEffect, useState } from "react";
+import { format, add } from "date-fns";
 
 export default function AvailabilityForm() {
   const today = new Date().toISOString().split("T")[0];
@@ -10,13 +11,22 @@ export default function AvailabilityForm() {
     NumOfGuest: "",
   });
 
+  console.log(checkOutMinDate);
+
   useEffect(() => {
     function handleCheckOutMinDate() {
       const today = new Date();
       const [year, month, day] = formBody.checkIn
         ? formBody.checkIn.split("-")
-        : [today.getFullYear(), today.getMonth() + 1, today.getDate()];
-      const checkOutMinDate = `${year}-${month}-${day + 1}`;
+        : [
+            today.getFullYear().toString(),
+            (today.getMonth() + 1).toString(),
+            today.getDate().toString(),
+          ];
+
+      const newDate = new Date(year, Number(month) - 1, day);
+
+      const checkOutMinDate = format(add(newDate, { days: 1 }), "yyyy-MM-dd");
 
       setCheckOutMinDate(checkOutMinDate);
     }
@@ -51,7 +61,7 @@ export default function AvailabilityForm() {
       </div>
       <div className={styles.formField}>
         <label>huespedes</label>
-        <input type="number" name="numOfGuest" required aria-required />
+        <input type="number" name="numOfGuest" required aria-required min={1} />
       </div>
       <div>
         <button className={styles.btn}>Buscar disponibilidad</button>
