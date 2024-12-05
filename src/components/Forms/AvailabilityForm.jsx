@@ -1,19 +1,30 @@
 import styles from "./AvailabilityForm.module.css";
 import { useEffect, useState } from "react";
-import { format, add } from "date-fns";
+import { format, add, sub } from "date-fns";
 
 export default function AvailabilityForm() {
   const today = new Date().toISOString().split("T")[0];
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
+  const [checkInMaxDate, setCheckInMaxDate] = useState("");
   const [formBody, setFormBody] = useState({
     checkIn: "",
     checkOut: "",
     NumOfGuest: "",
   });
 
-  console.log(checkOutMinDate);
-
   useEffect(() => {
+    function handleCheckInMaxDate() {
+      let checkInMaxDate = "";
+      if (formBody.checkOut !== "") {
+        const [year, month, day] = formBody.checkOut.split("-");
+        const newDate = new Date(year, Number(month) - 1, day);
+
+        checkInMaxDate = format(sub(newDate, { days: 1 }), "yyyy-MM-dd");
+      }
+
+      setCheckInMaxDate(checkInMaxDate);
+    }
+
     function handleCheckOutMinDate() {
       const today = new Date();
       const [year, month, day] = formBody.checkIn
@@ -31,6 +42,7 @@ export default function AvailabilityForm() {
       setCheckOutMinDate(checkOutMinDate);
     }
 
+    handleCheckInMaxDate();
     handleCheckOutMinDate();
   }, [formBody]);
 
@@ -47,7 +59,14 @@ export default function AvailabilityForm() {
     <form className={styles.form} onChange={handleFormChange}>
       <div className={styles.formField}>
         <label>check in</label>
-        <input type="date" name="checkIn" min={today} required aria-required />
+        <input
+          type="date"
+          name="checkIn"
+          min={today}
+          max={checkInMaxDate}
+          required
+          aria-required
+        />
       </div>
       <div className={styles.formField}>
         <label>check out</label>
