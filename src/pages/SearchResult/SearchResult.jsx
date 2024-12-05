@@ -19,16 +19,16 @@ export default function SearchResult() {
         </section>
         <section className={styles.searchDisplay}>
           <div className={styles.propertyInfo}>
-            <h1>{propertyInfo.name}</h1>
-            <div>
+            <h2>{propertyInfo.name}</h2>
+            <div className={styles.location}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#000000"
-                strokeWidth="2"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
@@ -40,10 +40,10 @@ export default function SearchResult() {
                 {propertyInfo.country}
               </p>
             </div>
-            <div className={styles.mainContent}>
-              <div className={styles.roomsContainer}></div>
-              <div className={styles.priceDetailsContainer}></div>
-            </div>
+          </div>
+          <div className={styles.mainContent}>
+            <div className={styles.roomsContainer}></div>
+            <div className={styles.priceDetailsContainer}></div>
           </div>
         </section>
       </main>
