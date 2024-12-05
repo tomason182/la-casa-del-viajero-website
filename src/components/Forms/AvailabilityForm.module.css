@@ -1,8 +1,10 @@
 form {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
+  align-items: center;
   gap: 2rem;
-  padding: 1rem 2rem;
+  width: 100%;
+  margin-top: 2rem;
   position: relative;
 }
 
@@ -12,10 +14,9 @@ form {
 
 .formField input {
   position: relative;
-  width: 100%;
   padding: 0.75rem 1.25rem;
   color: #555;
-  font-size: 1rem;
+  font-size: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
@@ -26,7 +27,19 @@ form {
 .formField label {
   position: absolute;
   font-size: 0.75rem;
-  top: 50%;
-  left: 8px;
+  top: 0%;
+  left: 0.75rem;
   transform: translateY(-50%);
+  background-color: #fff;
+  z-index: 2;
+}
+
+.form .btn {
+  padding: 0.75rem 2rem;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #415a77;
+  display: inline-block;
+  min-width: 200px;
 }
