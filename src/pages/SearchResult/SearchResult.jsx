@@ -4,6 +4,7 @@ import styles from "./SearchResult.module.css";
 
 export default function SearchResult() {
   const propertyInfo = {
+    _id: "property001",
     property_name: "La casa del viajero",
     address: {
       street: "Av. Las Flores 4220",
@@ -16,6 +17,49 @@ export default function SearchResult() {
       email: "lacasadelviajero@mail.com",
     },
   };
+
+  const roomTypes = [
+    {
+      _id: "roomType001",
+      property_id: "property001",
+      description: "Bed in 4max dormitory",
+      type: "dorm",
+      gender: "mixed",
+      max_occupancy: "4",
+      inventory: "1",
+      base_rate: "16",
+      currency: "USD",
+      rates_and_availability: [
+        {
+          _id: "rates_001",
+          start_date: new Date(2025, 1, 1),
+          end_date: new Date(2025, 3, 30),
+          custom_rate: "20",
+          custom_availability: 4,
+        },
+      ],
+    },
+    {
+      _id: "roomType002",
+      property_id: "property001",
+      description: "Private room with bathroom",
+      type: "private",
+      gender: "mixed",
+      max_occupancy: 2,
+      inventory: 2,
+      base_rate: "32",
+      currency: "USD",
+      rates_and_availability: [
+        {
+          _id: "rates_002",
+          start_date: new Date(2025, 1, 1),
+          end_date: new Date(2025, 3, 30),
+          custom_rate: "42",
+          custom_availability: 2,
+        },
+      ],
+    },
+  ];
 
   return (
     <>
