@@ -4,10 +4,17 @@ import styles from "./SearchResult.module.css";
 
 export default function SearchResult() {
   const propertyInfo = {
-    name: "La Casa del Viajero",
-    address: "Av. Las Flores 4220",
-    province: "Rio Negro",
-    country: "Argentina",
+    property_name: "La casa del viajero",
+    address: {
+      street: "Av. Las Flores 4220",
+      city: "el bolson",
+      postal_code: "7230",
+      country: "Argentina",
+    },
+    contact_info: {
+      phone_number: "2281515151",
+      email: "lacasadelviajero@mail.com",
+    },
   };
 
   return (
@@ -19,7 +26,7 @@ export default function SearchResult() {
         </section>
         <section className={styles.searchDisplay}>
           <div className={styles.propertyInfo}>
-            <h2>{propertyInfo.name}</h2>
+            <h2>{propertyInfo?.property_name}</h2>
             <div className={styles.location}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -36,8 +43,11 @@ export default function SearchResult() {
                 <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
               </svg>
               <p>
-                {propertyInfo.address}, {propertyInfo.province},
-                {propertyInfo.country}
+                {propertyInfo?.address.street}
+                {", "}
+                {propertyInfo?.address.city}
+                {", "}
+                {propertyInfo?.address.country}
               </p>
             </div>
           </div>

@@ -1,0 +1,14 @@
+{
+  "_id": "1234",
+  "property_name": "la casa del viajero",
+  "address": {
+    "street": "av. las flores 4220",
+    "city": "el bolson",
+    "postal_code": "7320",
+    "country_code": "AR"
+  },
+  "contact-info": {
+    "phone_number": "2281414141",
+    "email": "lacasadelviajero@gmail.com"
+  }
+}
