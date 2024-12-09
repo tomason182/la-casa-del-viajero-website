@@ -38,6 +38,15 @@ export default function SearchResult() {
           custom_availability: 4,
         },
       ],
+      amenities: [
+        "baño compartido",
+        "cocina compartida",
+        "ropa de cama",
+        "heladera compartida",
+        "calefaccion",
+        "papel higenico",
+        "toallas",
+      ],
     },
     {
       _id: "roomType002",
@@ -58,8 +67,35 @@ export default function SearchResult() {
           custom_availability: 2,
         },
       ],
+      amenities: [
+        "baño privado",
+        "cocina compartida",
+        "ropa de cama",
+        "heladera compartida",
+        "calefaccion",
+        "papel higenico",
+        "toallas",
+      ],
     },
   ];
+
+  const roomTypeList = roomTypes.map(r => {
+    return (
+      <div key={r._id} className={styles.roomTypeContainer}>
+        <div>
+          <h1>Imagenes de cuartos</h1>
+        </div>
+        <div>
+          <h3>{r.description}</h3>
+          <ul>
+            {r.amenities.map((amenity, index) => (
+              <li key={index}>{amenity}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <>
@@ -96,7 +132,7 @@ export default function SearchResult() {
             </div>
           </div>
           <div className={styles.mainContent}>
-            <div className={styles.roomsContainer}></div>
+            <div className={styles.roomsContainer}>{roomTypeList}</div>
             <div className={styles.priceDetailsContainer}></div>
           </div>
         </section>

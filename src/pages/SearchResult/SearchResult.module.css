@@ -23,3 +23,23 @@
 .location p {
   font-size: 0.85rem;
 }
+
+.roomTypeContainer {
+  border: 1px solid red;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  text-align: left;
+  padding: 1rem;
+}
+
+.roomTypeContainer ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.roomTypeContainer li {
+  font-size: 0.75rem;
+  list-style: none;
+}
