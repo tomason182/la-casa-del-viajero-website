@@ -4,7 +4,6 @@ import styles from "./SearchResult.module.css";
 import { useEffect, useState } from "react";
 
 export default function SearchResult() {
-  const [initialsBeds, setInitialBeds] = useState(0);
   const [numberOfGuest, setNumberOfGuest] = useState(2);
 
   let guestArray = [];
@@ -59,6 +58,7 @@ export default function SearchResult() {
         "papel higenico",
         "toallas",
       ],
+      availability: "7", // La api deberia devolver en el objeto roomType la disponibilidad en cada uno.
     },
     {
       _id: "roomType002",
@@ -88,10 +88,9 @@ export default function SearchResult() {
         "papel higenico",
         "toallas",
       ],
+      availability: "3",
     },
   ];
-
-  const guestOptions = guestArray.map((r, i) => <option key={i}>{r}</option>);
 
   const roomTypeList = roomTypes.map(r => {
     return (
@@ -109,7 +108,7 @@ export default function SearchResult() {
         </div>
         <div className={styles.priceContainer}>
           <p>us${r.base_rate * numberOfNights}</p>
-          <select name="guest">{guestOptions}</select>
+          <select name="guest">{renderBedsOptions(r.availability)}</select>
         </div>
       </div>
     );
@@ -159,4 +158,14 @@ export default function SearchResult() {
       </main>
     </>
   );
+}
+
+function renderBedsOptions(availability) {
+  const optionsList = [];
+
+  for (let i = 0; i <= availability; i++) {
+    optionsList.push(<option key={i}>{i}</option>);
+  }
+
+  return optionsList;
 }
