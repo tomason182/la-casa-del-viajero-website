@@ -6,12 +6,6 @@ import { useEffect, useState } from "react";
 export default function SearchResult() {
   const [numberOfGuest, setNumberOfGuest] = useState(2);
 
-  let guestArray = [];
-
-  for (let i = 0; i <= numberOfGuest; i++) {
-    guestArray[i] = i;
-  }
-
   const numberOfNights = 4;
 
   const propertyInfo = {
@@ -95,19 +89,41 @@ export default function SearchResult() {
   const roomTypeList = roomTypes.map(r => {
     return (
       <div key={r._id} className={styles.roomTypeContainer}>
-        <div>
+        <div className={styles.imageSlider}>
           <h1>Imagenes de cuartos</h1>
         </div>
-        <div>
+        <div className={styles.description}>
           <h3>{r.description}</h3>
           <ul>
             {r.amenities.map((amenity, index) => (
-              <li key={index}>{amenity}</li>
+              <li key={index}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#26701c"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                {amenity}
+              </li>
             ))}
           </ul>
         </div>
         <div className={styles.priceContainer}>
-          <p>us${r.base_rate * numberOfNights}</p>
+          <div className={styles.priceDetail}>
+            <p>us${r.base_rate * numberOfNights}</p>
+            <span>Precio para {numberOfNights} noches</span>
+            <span>
+              {r.type === "dorm" ? "1 persona" : `${r.max_occupancy} personas`}
+            </span>
+          </div>
+
           <select name="guest">{renderBedsOptions(r.availability)}</select>
         </div>
       </div>
