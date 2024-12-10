@@ -5,23 +5,12 @@ import { useEffect, useState } from "react";
 
 export default function SearchResult() {
   const [initialsBeds, setInitialBeds] = useState(0);
-  const [remainingBeds, setRemainingBeds] = useState(0);
   const [numberOfGuest, setNumberOfGuest] = useState(2);
 
   let guestArray = [];
 
   for (let i = 0; i <= numberOfGuest; i++) {
     guestArray[i] = i;
-  }
-
-  console.log(guestArray);
-
-  function handleBedsRemaining(e) {
-    e.preventDefault();
-
-    const selectedBeds = e.target.value;
-
-    setRemainingBeds(initialsBeds - selectedBeds);
   }
 
   const numberOfNights = 4;
@@ -120,9 +109,7 @@ export default function SearchResult() {
         </div>
         <div className={styles.priceContainer}>
           <p>us${r.base_rate * numberOfNights}</p>
-          <select name="guest" onChange={handleBedsRemaining}>
-            {guestOptions}
-          </select>
+          <select name="guest">{guestOptions}</select>
         </div>
       </div>
     );
