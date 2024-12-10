@@ -24,6 +24,11 @@
   font-size: 0.85rem;
 }
 
+.mainContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
 .roomTypeContainer {
   border: 1px solid red;
   display: grid;
@@ -42,4 +47,8 @@
 .roomTypeContainer li {
   font-size: 0.75rem;
   list-style: none;
+}
+
+.priceDetailContainer {
+  border: 1px solid red;
 }

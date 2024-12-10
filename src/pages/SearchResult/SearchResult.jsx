@@ -1,8 +1,31 @@
 import Header from "../../components/Header/Header.jsx";
 import AvailabilityForm from "../../components/Forms/AvailabilityForm";
 import styles from "./SearchResult.module.css";
+import { useEffect, useState } from "react";
 
 export default function SearchResult() {
+  const [initialsBeds, setInitialBeds] = useState(0);
+  const [remainingBeds, setRemainingBeds] = useState(0);
+  const [numberOfGuest, setNumberOfGuest] = useState(2);
+
+  let guestArray = [];
+
+  for (let i = 0; i <= numberOfGuest; i++) {
+    guestArray[i] = i;
+  }
+
+  console.log(guestArray);
+
+  function handleBedsRemaining(e) {
+    e.preventDefault();
+
+    const selectedBeds = e.target.value;
+
+    setRemainingBeds(initialsBeds - selectedBeds);
+  }
+
+  const numberOfNights = 4;
+
   const propertyInfo = {
     _id: "property001",
     property_name: "La casa del viajero",
@@ -79,6 +102,8 @@ export default function SearchResult() {
     },
   ];
 
+  const guestOptions = guestArray.map((r, i) => <option key={i}>{r}</option>);
+
   const roomTypeList = roomTypes.map(r => {
     return (
       <div key={r._id} className={styles.roomTypeContainer}>
@@ -92,6 +117,12 @@ export default function SearchResult() {
               <li key={index}>{amenity}</li>
             ))}
           </ul>
+        </div>
+        <div className={styles.priceContainer}>
+          <p>us${r.base_rate * numberOfNights}</p>
+          <select name="guest" onChange={handleBedsRemaining}>
+            {guestOptions}
+          </select>
         </div>
       </div>
     );
@@ -133,7 +164,9 @@ export default function SearchResult() {
           </div>
           <div className={styles.mainContent}>
             <div className={styles.roomsContainer}>{roomTypeList}</div>
-            <div className={styles.priceDetailsContainer}></div>
+            <div className={styles.priceDetailContainer}>
+              <h1>Price details</h1>
+            </div>
           </div>
         </section>
       </main>
