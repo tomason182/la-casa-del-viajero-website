@@ -4,26 +4,9 @@ import styles from "./SearchResult.module.css";
 import { useEffect, useState } from "react";
 
 export default function SearchResult() {
-  const [numberOfGuest, setNumberOfGuest] = useState(2);
-
-  const numberOfNights = 4;
-
-  const propertyInfo = {
-    _id: "property001",
-    property_name: "La casa del viajero",
-    address: {
-      street: "Av. Las Flores 4220",
-      city: "el bolson",
-      postal_code: "7230",
-      country: "Argentina",
-    },
-    contact_info: {
-      phone_number: "2281515151",
-      email: "lacasadelviajero@mail.com",
-    },
-  };
-
-  const roomTypes = [
+  const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
+  console.log(selectedNumGuest);
+  const [roomTypes, setRoomtypes] = useState([
     {
       _id: "roomType001",
       property_id: "property001",
@@ -84,7 +67,54 @@ export default function SearchResult() {
       ],
       availability: "3",
     },
-  ];
+  ]);
+  const numberOfNights = 4;
+
+  function handleGuestSelection(e) {
+    e.preventDefault();
+
+    const { name, value } = e.target;
+
+    setSelectedNumOfGuest({
+      ...selectedNumGuest,
+      [name]: value,
+    });
+  }
+
+  function renderBedsOptions(availability, id) {
+    const bedsArray = [];
+
+    for (let i = 0; i <= Number(availability); i++) {
+      bedsArray.push(i);
+    }
+
+    const bedsOptions = bedsArray.map(bed => (
+      <option key={`${id}-${bed}`} value={bed}>
+        {bed}
+      </option>
+    ));
+
+    return (
+      <select name={id} onChange={handleGuestSelection}>
+        {bedsOptions}
+      </select>
+    );
+  }
+
+  const propertyInfo = {
+    _id: "property001",
+    property_name: "La casa del viajero",
+    address: {
+      street: "Av. Las Flores 4220",
+      city: "el bolson",
+      postal_code: "7230",
+      country: "Argentina",
+    },
+    contact_info: {
+      phone_number: "2281515151",
+      email: "lacasadelviajero@mail.com",
+    },
+  };
 
   const roomTypeList = roomTypes.map(r => {
     return (
@@ -123,8 +153,9 @@ export default function SearchResult() {
               {r.type === "dorm" ? "1 persona" : `${r.max_occupancy} personas`}
             </span>
           </div>
-
-          <select name="guest">{renderBedsOptions(r.availability)}</select>
+          <div className={styles.bedSelection}>
+            {renderBedsOptions(r.availability, r._id)}
+          </div>
         </div>
       </div>
     );
@@ -174,14 +205,4 @@ export default function SearchResult() {
       </main>
     </>
   );
-}
-
-function renderBedsOptions(availability) {
-  const optionsList = [];
-
-  for (let i = 0; i <= availability; i++) {
-    optionsList.push(<option key={i}>{i}</option>);
-  }
-
-  return optionsList;
 }

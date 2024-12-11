@@ -73,10 +73,12 @@
   font-size: 9px;
 }
 
-.priceContainer select {
-  width: 3rem;
+.priceContainer .bedSelection {
+  justify-self: right;
+}
+
+.priceContainer .bedSelection select {
   padding: 0.25rem 1rem;
-  justify-self: end;
 }
 
 .priceDetailContainer {
