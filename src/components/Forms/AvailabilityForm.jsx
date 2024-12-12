@@ -1,16 +1,12 @@
 import styles from "./AvailabilityForm.module.css";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { format, add, sub } from "date-fns";
 
-export default function AvailabilityForm() {
+export default function AvailabilityForm({ formBody, setFormBody }) {
   const today = new Date().toISOString().split("T")[0];
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
   const [checkInMaxDate, setCheckInMaxDate] = useState("");
-  const [formBody, setFormBody] = useState({
-    checkIn: "",
-    checkOut: "",
-    NumOfGuest: "",
-  });
 
   useEffect(() => {
     function handleCheckInMaxDate() {
@@ -88,3 +84,8 @@ export default function AvailabilityForm() {
     </form>
   );
 }
+
+AvailabilityForm.propTypes = {
+  formBody: PropTypes.object.isRequired,
+  setFormBody: PropTypes.func.isRequired,
+};

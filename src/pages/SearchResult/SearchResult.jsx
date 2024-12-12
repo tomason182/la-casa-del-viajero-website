@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function SearchResult() {
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
+  const [formBody, setFormBody] = useState({
+    checkIn: "",
+    checkOut: "",
+    NumOfGuest: "",
+  });
+
+  console.log(formBody);
+  const [numberOfNights, setNumberOfNights] = useState(0);
   const [roomTypes, setRoomtypes] = useState([
     {
       _id: "roomType001",
@@ -24,6 +32,13 @@ export default function SearchResult() {
           custom_rate: "20",
           custom_availability: 4,
         },
+        {
+          _id: "rates_002",
+          start_date: new Date(2025, 4, 1),
+          end_date: new Date(2025, 5, 30),
+          custom_rate: "20",
+          custom_availability: 4,
+        },
       ],
       amenities: [
         "baño compartido",
@@ -34,6 +49,7 @@ export default function SearchResult() {
         "papel higenico",
         "toallas",
       ],
+
       availability: "7", // La api deberia devolver en el objeto roomType la disponibilidad en cada uno.
     },
     {
@@ -67,7 +83,33 @@ export default function SearchResult() {
       availability: "3",
     },
   ]);
-  const numberOfNights = 4;
+
+  useEffect(() => {
+    function calculateNumberOfNigths() {
+      if (formBody.checkIn && formBody.checkOut) {
+        const [checkInYear, checkInMonth, checkInDate] =
+          formBody.checkIn.split("-");
+        const [checkOutYear, checkOutMonth, checkOutDate] =
+          formBody.checkOut.split("-");
+        const checkInFormatted = new Date(
+          checkInYear,
+          checkInMonth - 1,
+          checkInDate
+        );
+        const checkOutFormatted = new Date(
+          checkOutYear,
+          checkOutMonth - 1,
+          checkOutDate
+        );
+
+        const nights =
+          (checkOutFormatted - checkInFormatted) / (1000 * 3600 * 24);
+        setNumberOfNights(nights);
+      }
+    }
+
+    calculateNumberOfNigths();
+  }, [formBody]);
 
   function handleGuestSelection(e) {
     e.preventDefault();
@@ -182,7 +224,7 @@ export default function SearchResult() {
       <Header />
       <main>
         <section className={styles.searchContainer}>
-          <AvailabilityForm />
+          <AvailabilityForm formBody={formBody} setFormBody={setFormBody} />
         </section>
         <section className={styles.searchDisplay}>
           <div className={styles.propertyInfo}>
@@ -214,23 +256,43 @@ export default function SearchResult() {
           <div className={styles.mainContent}>
             <div className={styles.roomsContainer}>{roomTypeList}</div>
             <div className={styles.priceDetailContainer}>
+              <h3>Detalle de la reserva</h3>
               {Object.keys(selectedNumGuest).length === 0 ||
               Object.values(selectedNumGuest).every(value => value === "0") ? (
-                <p>No hay datos</p>
+                <p className={styles.noRoom}>
+                  Seleccione los cuartos que desea reservar para continuar
+                </p>
               ) : (
-                <div>
-                  <p>Estadia {numberOfNights} noches</p>
-                  <ul>
-                    {renderRoomDetails(
-                      roomTypes,
-                      selectedNumGuest,
-                      numberOfNights
-                    )}
-                  </ul>
-                  <h3>Total: us$ {totalAmount}</h3>
-                  <button>Resevar</button>
+                <div className={styles.reservationDetails}>
+                  <div>
+                    <p>Estadia {numberOfNights} noches</p>
+                  </div>
+                  <div className={styles.roomList}>
+                    <ul>
+                      {renderRoomDetails(
+                        roomTypes,
+                        selectedNumGuest,
+                        numberOfNights
+                      )}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Total: us$ {totalAmount}</h3>
+                  </div>
                 </div>
               )}
+              <div>
+                <button
+                  disabled={
+                    Object.keys(selectedNumGuest).length === 0 ||
+                    Object.values(selectedNumGuest).every(
+                      value => value === "0"
+                    )
+                  }
+                >
+                  Reservar
+                </button>
+              </div>
             </div>
           </div>
         </section>

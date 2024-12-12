@@ -1,4 +1,5 @@
 import styles from "./Header.module.css";
+import { Link } from "react-router";
 
 export default function Header() {
   return (
@@ -8,7 +9,9 @@ export default function Header() {
       </div>
       <nav>
         <ul className={styles.navList}>
-          <li>Servicios</li>
+          <li>
+            <Link to="searchresult">Reserva</Link>
+          </li>
           <li>Nuestros cuartos</li>
           <li>Contactanos</li>
           <li>Sobre Nosotros</li>
