@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export default function SearchResult() {
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
-  console.log(selectedNumGuest);
   const [roomTypes, setRoomtypes] = useState([
     {
       _id: "roomType001",
@@ -70,40 +69,6 @@ export default function SearchResult() {
   ]);
   const numberOfNights = 4;
 
-  /*   const roomDetails = () => {
-    const listOfRooms = [];
-    for (const item in selectedNumGuest) {
-      const selectedRoom = roomTypes.find(r => r._id === item);
-      listOfRooms.push(selectedRoom);
-
-      listOfRooms.map(r => (
-        <li key={r._id}>
-          <p>{r.description}</p>
-          <p>{numberOfNights * selectedNumGuest[r._id] * r.base_rate}</p>
-        </li>
-      ));
-    }
-  };
-
-  const priceDetail = () => {
-    if (!selectedNumGuest) {
-      return (
-        <div className={styles.priceDetailDefault}>
-          Por favor, seleccione las habitaciones que quiere reservar para ver el
-          detalle
-        </div>
-      );
-    }
-
-    return (
-      <div>
-        <h2>Detalle</h2>
-        <p>Estadia {numberOfNights} noches</p>
-        <ul>{roomDetails()}</ul>
-      </div>
-    );
-  }; */
-
   function handleGuestSelection(e) {
     e.preventDefault();
 
@@ -149,6 +114,23 @@ export default function SearchResult() {
       email: "lacasadelviajero@mail.com",
     },
   };
+
+  let totalAmount = 0;
+  function renderRoomDetails(roomTypesList, selectedRooms, nights) {
+    return Object.keys(selectedRooms).map(obj => {
+      const room = roomTypesList.find(r => r._id === obj);
+      if (selectedRooms[obj] === "0") {
+        return false;
+      }
+      totalAmount += nights * room.base_rate * selectedRooms[obj];
+      return (
+        <li key={obj}>
+          <p>{room.description}</p>
+          <p>us$ {nights * room.base_rate * selectedRooms[obj]}</p>
+        </li>
+      );
+    });
+  }
 
   const roomTypeList = roomTypes.map(r => {
     return (
@@ -232,7 +214,10 @@ export default function SearchResult() {
           <div className={styles.mainContent}>
             <div className={styles.roomsContainer}>{roomTypeList}</div>
             <div className={styles.priceDetailContainer}>
-              {Object.keys(selectedNumGuest).length > 0 ? (
+              {Object.keys(selectedNumGuest).length === 0 ||
+              Object.values(selectedNumGuest).every(value => value === "0") ? (
+                <p>No hay datos</p>
+              ) : (
                 <div>
                   <p>Estadia {numberOfNights} noches</p>
                   <ul>
@@ -242,9 +227,9 @@ export default function SearchResult() {
                       numberOfNights
                     )}
                   </ul>
+                  <h3>Total: us$ {totalAmount}</h3>
+                  <button>Resevar</button>
                 </div>
-              ) : (
-                <p>No hay datos</p>
               )}
             </div>
           </div>
@@ -252,16 +237,4 @@ export default function SearchResult() {
       </main>
     </>
   );
-}
-
-function renderRoomDetails(roomTypesList, selectedRooms, nights) {
-  return Object.keys(selectedRooms).map(obj => {
-    const room = roomTypesList.find(r => r._id === obj);
-    return (
-      <li key={obj}>
-        <p>{room.description}</p>
-        <p>{nights * room.base_rate * selectedRooms[obj]}</p>
-      </li>
-    );
-  });
 }
