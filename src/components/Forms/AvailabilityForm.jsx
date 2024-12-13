@@ -42,22 +42,27 @@ export default function AvailabilityForm({ formBody, setFormBody }) {
     handleCheckOutMinDate();
   }, [formBody]);
 
-  function handleFormChange(e) {
+  function handleFormSubmit(e) {
     e.preventDefault();
+
+    const { checkIn, checkOut, numOfGuest } = e.target;
 
     setFormBody({
       ...formBody,
-      [e.target.name]: e.target.value,
+      checkIn: checkIn.value,
+      checkOut: checkOut.value,
+      numOfGuest: numOfGuest.value,
     });
   }
 
   return (
-    <form className={styles.form} onChange={handleFormChange}>
+    <form className={styles.form} onSubmit={handleFormSubmit}>
       <div className={styles.formField}>
-        <label>check in</label>
+        <label htmlFor="checkIn">check in</label>
         <input
           type="date"
           name="checkIn"
+          id="checkIn"
           min={today}
           max={checkInMaxDate}
           required
@@ -65,9 +70,10 @@ export default function AvailabilityForm({ formBody, setFormBody }) {
         />
       </div>
       <div className={styles.formField}>
-        <label>check out</label>
+        <label htmlFor="checkOut">check out</label>
         <input
           type="date"
+          id="checkOut"
           name="checkOut"
           required
           aria-required
@@ -75,11 +81,20 @@ export default function AvailabilityForm({ formBody, setFormBody }) {
         />
       </div>
       <div className={styles.formField}>
-        <label>huespedes</label>
-        <input type="number" name="numOfGuest" required aria-required min={1} />
+        <label htmlFor="numOfGuest">huespedes</label>
+        <input
+          type="number"
+          id="numOfGuest"
+          name="numOfGuest"
+          required
+          aria-required
+          min={1}
+        />
       </div>
       <div>
-        <button className={styles.btn}>Buscar disponibilidad</button>
+        <button type="submit" className={styles.btn}>
+          Buscar disponibilidad
+        </button>
       </div>
     </form>
   );
