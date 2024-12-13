@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import Location from "../../components/Location/Location";
-import AvailabilityForm from "../../components/Forms/AvailabilityForm";
 import styles from "./Home.module.css";
 import entorno from "../../assets/images/entorno.png";
 import ambiente from "../../assets/images/ambiente.png";
@@ -55,7 +54,6 @@ export default function Home() {
       <section className={styles.mainContent}>
         <div className={styles.bookingContent}>
           <h2>Reservá tu próxima estadia</h2>
-          <AvailabilityForm />
         </div>
       </section>
       <section className={styles.about}>
