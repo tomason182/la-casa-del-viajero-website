@@ -1,5 +1,6 @@
 import Header from "../../components/Header/Header.jsx";
-import AvailabilityForm from "../../components/Forms/AvailabilityForm";
+import AvailabilityForm from "../../components/Forms/AvailabilityForm.jsx";
+import AvailabilitySearch from "../../components/AvailabilitySearch/AvailabilitySearch.jsx";
 import styles from "./SearchResult.module.css";
 import { useEffect, useState } from "react";
 
@@ -12,7 +13,7 @@ export default function SearchResult() {
   });
 
   const [numberOfNights, setNumberOfNights] = useState(0);
-  const [availableRoomTypes, setAvailableRoomTypes] = useState(null);
+  const [availableRoomTypes, setAvailableRoomTypes] = useState([]);
 
   useEffect(() => {
     function fetchAvailability() {
@@ -169,7 +170,14 @@ export default function SearchResult() {
               </p>
             </div>
           </div>
-          <div className={styles.mainContent}></div>
+          <div className={styles.mainContent}>
+            <AvailabilitySearch
+              selectedNumGuest={selectedNumGuest}
+              setSelectedNumOfGuest={setSelectedNumOfGuest}
+              availableRoomTypes={availableRoomTypes}
+              numberOfNights={numberOfNights}
+            />
+          </div>
         </section>
       </main>
     </>
