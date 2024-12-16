@@ -1,0 +1,30 @@
+.guestDetails {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  border: 1px solid red;
+}
+
+.detailsContent {
+  grid-column: 2 / 3;
+  grid-row: inherit;
+}
+
+.guestForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.guestForm label,
+.guestForm fieldset {
+  width: 50%;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.guestForm input,
+.guestForm select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 5px;
+}

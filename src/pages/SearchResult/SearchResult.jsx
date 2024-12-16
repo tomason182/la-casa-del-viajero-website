@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 
 export default function SearchResult() {
   const [index, setIndex] = useState(0);
-  console.log(index);
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
   const [formBody, setFormBody] = useState({
     checkIn: "",
@@ -183,7 +182,16 @@ export default function SearchResult() {
                 setIndex={setIndex}
               />
             )}
-            {index === 1 && <Booking setIndex={setIndex} />}
+            {index === 1 && (
+              <Booking
+                setIndex={setIndex}
+                propertyInfo={propertyInfo}
+                formBody={formBody}
+                numberOfNights={numberOfNights}
+                selectedNumGuest={selectedNumGuest}
+                availableRoomTypes={availableRoomTypes}
+              />
+            )}
           </div>
         </section>
       </main>
