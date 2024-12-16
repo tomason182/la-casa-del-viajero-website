@@ -6,6 +6,7 @@ export default function AvailabilitySearch({
   setSelectedNumOfGuest,
   availableRoomTypes,
   numberOfNights,
+  setIndex,
 }) {
   function handleGuestSelection(e) {
     e.preventDefault();
@@ -142,6 +143,7 @@ export default function AvailabilitySearch({
             )}
             <div>
               <button
+                onClick={() => setIndex(1)}
                 disabled={
                   Object.keys(selectedNumGuest).length === 0 ||
                   Object.values(selectedNumGuest).every(value => value === "0")
@@ -158,8 +160,9 @@ export default function AvailabilitySearch({
 }
 
 AvailabilitySearch.propTypes = {
-  selectedNumGuest: PropTypes.array.isRequired,
+  selectedNumGuest: PropTypes.object.isRequired,
   setSelectedNumOfGuest: PropTypes.func.isRequired,
   availableRoomTypes: PropTypes.array.isRequired,
   numberOfNights: PropTypes.number.isRequired,
+  setIndex: PropTypes.func.isRequired,
 };

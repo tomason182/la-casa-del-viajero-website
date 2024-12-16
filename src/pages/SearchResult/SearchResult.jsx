@@ -1,10 +1,13 @@
 import Header from "../../components/Header/Header.jsx";
 import AvailabilityForm from "../../components/Forms/AvailabilityForm.jsx";
 import AvailabilitySearch from "../../components/AvailabilitySearch/AvailabilitySearch.jsx";
+import Booking from "../../components/Booking/Booking.jsx";
 import styles from "./SearchResult.module.css";
 import { useEffect, useState } from "react";
 
 export default function SearchResult() {
+  const [index, setIndex] = useState(0);
+  console.log(index);
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
   const [formBody, setFormBody] = useState({
     checkIn: "",
@@ -171,12 +174,16 @@ export default function SearchResult() {
             </div>
           </div>
           <div className={styles.mainContent}>
-            <AvailabilitySearch
-              selectedNumGuest={selectedNumGuest}
-              setSelectedNumOfGuest={setSelectedNumOfGuest}
-              availableRoomTypes={availableRoomTypes}
-              numberOfNights={numberOfNights}
-            />
+            {index === 0 && (
+              <AvailabilitySearch
+                selectedNumGuest={selectedNumGuest}
+                setSelectedNumOfGuest={setSelectedNumOfGuest}
+                availableRoomTypes={availableRoomTypes}
+                numberOfNights={numberOfNights}
+                setIndex={setIndex}
+              />
+            )}
+            {index === 1 && <Booking setIndex={setIndex} />}
           </div>
         </section>
       </main>
