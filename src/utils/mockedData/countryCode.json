@@ -1,4 +1,5 @@
 [
+  { "value": "", "label": "Seleccione un pais o región", "code": "" },
   { "value": "xa", "label": "Abjasia,Georgia", "code": "+995" },
   { "value": "af", "label": "Afganistán", "code": "+93" },
   { "value": "al", "label": "Albania", "code": "+355" },

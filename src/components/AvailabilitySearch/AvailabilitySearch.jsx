@@ -109,8 +109,10 @@ export default function AvailabilitySearch({
   return (
     <>
       {availableRoomTypes.length === 0 ? (
-        <div>
-          <h3>Antes de comenzar, realize una busqueda de disponibilidad</h3>
+        <div className={styles.initialMessage}>
+          <h3>
+            Para ver el listado de habitacione disponibles, realice una busqueda
+          </h3>
         </div>
       ) : (
         <>

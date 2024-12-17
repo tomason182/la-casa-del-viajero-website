@@ -11,12 +11,13 @@ export default function Booking({
   selectedNumGuest,
   availableRoomTypes,
 }) {
-  const [selectedCode, setSelecteCode] = useState("");
+  const [selectedCode, setSelectedCode] = useState("");
 
-  function handlecodeSelection(e) {
+  function handleCodeSelection(e) {
     e.preventDefault();
 
-    const [value] = e.target;
+    const value = e.target.value;
+    setSelectedCode(value);
   }
 
   let totalAmount = 0;
@@ -42,17 +43,24 @@ export default function Booking({
     <>
       <div className={styles.detailsContent}>
         <div className={styles.propertyDetails}>
-          <h4>{propertyInfo.property_name}</h4>
-          <p>{propertyInfo.address.street}</p>
-          <p>{propertyInfo.address.city}</p>
+          <h3>{propertyInfo.property_name}</h3>
+          <p>
+            {propertyInfo.address.street}, {propertyInfo.address.city},{" "}
+          </p>
         </div>
         <div className={styles.reservationDetails}>
-          <p>Detalle de la reserva</p>
-          <p>Entrada:</p>
-          <p>{formBody.checkIn}</p>
-          <p>Salida:</p>
-          <p>{formBody.checkOut}</p>
-          <p>Duración de la estadia</p>
+          <h4>Detalle de la reserva</h4>
+          <p>
+            <span>Entrada:</span>
+            <br />
+            <span>{formBody.checkIn}</span>
+          </p>
+          <p>
+            <span>Salida:</span>
+            <br />
+            <span>{formBody.checkOut}</span>
+          </p>
+          <p>Duración de la estadia:</p>
           <p>
             {numberOfNights} {numberOfNights === 1 ? "noche" : "noches"}
           </p>
@@ -70,7 +78,6 @@ export default function Booking({
           <p>{totalAmount}</p>
         </div>
       </div>
-
       <div className={styles.guestDetails}>
         <form className={styles.guestForm}>
           <label>
@@ -87,7 +94,10 @@ export default function Booking({
           </label>
           <label>
             País/Region
-            <select className={styles.listOfCountries}>
+            <select
+              className={styles.listOfCountries}
+              onChange={handleCodeSelection}
+            >
               {countryCodes.map(country => (
                 <option key={country.value} value={country.value}>
                   {country.label}
@@ -99,7 +109,11 @@ export default function Booking({
             <legend>Numero de telefono</legend>
             <div>
               <label>
-                <select className="countryCode" name="countryCode">
+                <select
+                  className="countryCode"
+                  name="countryCode"
+                  value={selectedCode}
+                >
                   {countryCodes.map(country => (
                     <option key={country.value} value={country.value}>
                       {country.label} {country.code}

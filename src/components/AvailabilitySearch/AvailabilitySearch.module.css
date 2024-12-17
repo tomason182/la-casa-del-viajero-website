@@ -1,3 +1,8 @@
+.initialMessage {
+  display: flex;
+  justify-content: center;
+}
+
 .roomTypeContainer {
   border: 1px solid red;
   display: grid;
