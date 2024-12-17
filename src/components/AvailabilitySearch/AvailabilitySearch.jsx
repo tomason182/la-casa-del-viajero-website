@@ -61,7 +61,7 @@ export default function AvailabilitySearch({
     availableRoomTypes &&
     availableRoomTypes.map(r => {
       return (
-        <div key={r._id} className={styles.roomTypeContainer}>
+        <div key={r._id} className={styles.roomContainer}>
           <div className={styles.imageSlider}>
             <h1>Imagenes de cuartos</h1>
           </div>
@@ -107,57 +107,47 @@ export default function AvailabilitySearch({
     });
 
   return (
-    <>
-      {availableRoomTypes.length === 0 ? (
-        <div className={styles.initialMessage}>
-          <h3>
-            Para ver el listado de habitacione disponibles, realice una busqueda
-          </h3>
-        </div>
-      ) : (
-        <>
-          <div className={styles.roomsContainer}>{roomTypeList}</div>
-          <div className={styles.priceDetailContainer}>
-            <h3>Detalle de la reserva</h3>
-            {Object.keys(selectedNumGuest).length === 0 ||
-            Object.values(selectedNumGuest).every(value => value === "0") ? (
-              <p className={styles.noRoom}>
-                Seleccione los cuartos que desea reservar para continuar
-              </p>
-            ) : (
-              <div className={styles.reservationDetails}>
-                <div>
-                  <p>Estadia {numberOfNights} noches</p>
-                </div>
-                <div className={styles.roomList}>
-                  <ul>
-                    {renderRoomDetails(
-                      availableRoomTypes,
-                      selectedNumGuest,
-                      numberOfNights
-                    )}
-                  </ul>
-                </div>
-                <div>
-                  <h3>Total: us$ {totalAmount}</h3>
-                </div>
-              </div>
-            )}
+    <div className={styles.container}>
+      <div>{roomTypeList}</div>
+      <div className={styles.priceDetailContainer}>
+        <h3>Detalle de la reserva</h3>
+        {Object.keys(selectedNumGuest).length === 0 ||
+        Object.values(selectedNumGuest).every(value => value === "0") ? (
+          <p className={styles.noRoom}>
+            Seleccione los cuartos que desea reservar para continuar
+          </p>
+        ) : (
+          <div className={styles.reservationDetails}>
             <div>
-              <button
-                onClick={() => setIndex(1)}
-                disabled={
-                  Object.keys(selectedNumGuest).length === 0 ||
-                  Object.values(selectedNumGuest).every(value => value === "0")
-                }
-              >
-                Reservar
-              </button>
+              <p>Estadia {numberOfNights} noches</p>
+            </div>
+            <div className={styles.roomList}>
+              <ul>
+                {renderRoomDetails(
+                  availableRoomTypes,
+                  selectedNumGuest,
+                  numberOfNights
+                )}
+              </ul>
+            </div>
+            <div>
+              <h3>Total: us$ {totalAmount}</h3>
             </div>
           </div>
-        </>
-      )}
-    </>
+        )}
+        <div>
+          <button
+            onClick={() => setIndex(3)}
+            disabled={
+              Object.keys(selectedNumGuest).length === 0 ||
+              Object.values(selectedNumGuest).every(value => value === "0")
+            }
+          >
+            Continuar
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -40,32 +40,33 @@ export default function Booking({
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.detailsContent}>
         <div className={styles.propertyDetails}>
           <h3>{propertyInfo.property_name}</h3>
           <p>
             {propertyInfo.address.street}, {propertyInfo.address.city},{" "}
+            {propertyInfo.address.country}
           </p>
         </div>
         <div className={styles.reservationDetails}>
           <h4>Detalle de la reserva</h4>
           <p>
             <span>Entrada:</span>
-            <br />
             <span>{formBody.checkIn}</span>
           </p>
           <p>
             <span>Salida:</span>
-            <br />
             <span>{formBody.checkOut}</span>
           </p>
-          <p>Duración de la estadia:</p>
           <p>
-            {numberOfNights} {numberOfNights === 1 ? "noche" : "noches"}
+            <span>Duración de la estadia:</span>
+            <span>
+              {numberOfNights} {numberOfNights === 1 ? "noche" : "noches"}
+            </span>
           </p>
         </div>
-        <div>
+        <div className={styles.reservationDetails}>
           <h4>Desglose del precio</h4>
           <ul>
             {renderRoomDetails(
@@ -74,8 +75,8 @@ export default function Booking({
               numberOfNights
             )}
           </ul>
-          <h2>Total a pagar</h2>
-          <p>{totalAmount}</p>
+          <h4 className={styles.totalPrice}>Total a pagar</h4>
+          <p>us$ {totalAmount}</p>
         </div>
       </div>
       <div className={styles.guestDetails}>
@@ -125,7 +126,7 @@ export default function Booking({
           </fieldset>
         </form>
       </div>
-    </>
+    </div>
   );
 }
 

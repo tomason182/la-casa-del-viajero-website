@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { format, add, sub } from "date-fns";
 
-export default function AvailabilityForm({ formBody, setFormBody }) {
+export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
   const today = new Date().toISOString().split("T")[0];
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
   const [checkInMaxDate, setCheckInMaxDate] = useState("");
@@ -53,6 +53,8 @@ export default function AvailabilityForm({ formBody, setFormBody }) {
       checkOut: checkOut.value,
       numOfGuest: numOfGuest.value,
     });
+
+    setIndex(2);
   }
 
   return (
@@ -103,4 +105,5 @@ export default function AvailabilityForm({ formBody, setFormBody }) {
 AvailabilityForm.propTypes = {
   formBody: PropTypes.object.isRequired,
   setFormBody: PropTypes.func.isRequired,
+  setIndex: PropTypes.func.isRequired,
 };

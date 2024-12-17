@@ -2,11 +2,12 @@ import Header from "../../components/Header/Header.jsx";
 import AvailabilityForm from "../../components/Forms/AvailabilityForm.jsx";
 import AvailabilitySearch from "../../components/AvailabilitySearch/AvailabilitySearch.jsx";
 import Booking from "../../components/Booking/Booking.jsx";
+import StepIndicator from "../../components/StepIndicator/StepIndicator.jsx";
 import styles from "./SearchResult.module.css";
 import { useEffect, useState } from "react";
 
 export default function SearchResult() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(1);
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
   const [formBody, setFormBody] = useState({
     checkIn: "",
@@ -16,6 +17,7 @@ export default function SearchResult() {
 
   const [numberOfNights, setNumberOfNights] = useState(0);
   const [availableRoomTypes, setAvailableRoomTypes] = useState([]);
+  const totalSteps = 4;
 
   useEffect(() => {
     function fetchAvailability() {
@@ -142,57 +144,35 @@ export default function SearchResult() {
     <>
       <Header />
       <main>
-        <section className={styles.searchContainer}>
-          <AvailabilityForm formBody={formBody} setFormBody={setFormBody} />
-        </section>
+        <StepIndicator totalSteps={totalSteps} currentStep={index} />
         <section className={styles.searchDisplay}>
-          <div className={styles.propertyInfo}>
-            <h2>{propertyInfo?.property_name}</h2>
-            <div className={styles.location}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#000000"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="10" r="3" />
-                <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
-              </svg>
-              <p>
-                {propertyInfo?.address.street}
-                {", "}
-                {propertyInfo?.address.city}
-                {", "}
-                {propertyInfo?.address.country}
-              </p>
-            </div>
-          </div>
-          <div className={styles.mainContent}>
-            {index === 0 && (
-              <AvailabilitySearch
-                selectedNumGuest={selectedNumGuest}
-                setSelectedNumOfGuest={setSelectedNumOfGuest}
-                availableRoomTypes={availableRoomTypes}
-                numberOfNights={numberOfNights}
-                setIndex={setIndex}
-              />
-            )}
-            {index === 1 && (
-              <Booking
-                setIndex={setIndex}
-                propertyInfo={propertyInfo}
-                formBody={formBody}
-                numberOfNights={numberOfNights}
-                selectedNumGuest={selectedNumGuest}
-                availableRoomTypes={availableRoomTypes}
-              />
-            )}
-          </div>
+          {index === 1 && (
+            <AvailabilityForm
+              formBody={formBody}
+              setFormBody={setFormBody}
+              setIndex={setIndex}
+            />
+          )}
+
+          {index === 2 && (
+            <AvailabilitySearch
+              selectedNumGuest={selectedNumGuest}
+              setSelectedNumOfGuest={setSelectedNumOfGuest}
+              availableRoomTypes={availableRoomTypes}
+              numberOfNights={numberOfNights}
+              setIndex={setIndex}
+            />
+          )}
+          {index === 3 && (
+            <Booking
+              setIndex={setIndex}
+              propertyInfo={propertyInfo}
+              formBody={formBody}
+              numberOfNights={numberOfNights}
+              selectedNumGuest={selectedNumGuest}
+              availableRoomTypes={availableRoomTypes}
+            />
+          )}
         </section>
       </main>
     </>

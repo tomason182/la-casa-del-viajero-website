@@ -2,11 +2,11 @@ import PropTypes from "prop-types";
 
 export default function StepIndicator({ totalSteps, currentStep }) {
   return (
-    <div className={styles.container}>
+    <div style={styles.container}>
       {Array.from({ length: totalSteps }, (_, index) => {
         const stepNumber = index + 1;
         return (
-          <div key={index} className={styles.stepContainer}>
+          <div key={index} style={styles.stepContainer}>
             {/* circulo del paso */}
             <div
               style={{
@@ -43,8 +43,8 @@ export default function StepIndicator({ totalSteps, currentStep }) {
 const styles = {
   container: {
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
     margin: "1.25 rem 0",
   },
   stepContainer: {
@@ -63,8 +63,8 @@ const styles = {
     fontSize: "1rem",
   },
   line: {
-    width: "50px",
-    height: "40px",
+    minWidth: "150px",
+    height: "2px",
   },
 };
 
