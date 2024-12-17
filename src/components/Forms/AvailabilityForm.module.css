@@ -1,14 +1,16 @@
 form {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
+  margin: 3rem auto;
   gap: 2rem;
-  width: 100%;
+  max-width: 500px;
   position: relative;
 }
 
 .formField {
   position: relative;
+  width: 100%;
 }
 
 .formField input {
@@ -21,6 +23,7 @@ form {
   outline: none;
   background: transparent;
   z-index: 1;
+  width: 100%;
 }
 
 .formField label {
