@@ -3,59 +3,73 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { format, add, sub } from "date-fns";
 
-export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
+export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
   const today = new Date().toISOString().split("T")[0];
+  const [roomTypeList, setRoomTypeList] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
+  const [numOfGuest, setNumOfGuest] = useState("");
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
-  const [checkInMaxDate, setCheckInMaxDate] = useState("");
 
   useEffect(() => {
-    function handleCheckInMaxDate() {
-      let checkInMaxDate = "";
-      if (formBody.checkOut !== "") {
-        const [year, month, day] = formBody.checkOut.split("-");
-        const newDate = new Date(year, Number(month) - 1, day);
-
-        checkInMaxDate = format(sub(newDate, { days: 1 }), "yyyy-MM-dd");
-      }
-
-      setCheckInMaxDate(checkInMaxDate);
-    }
-
     function handleCheckOutMinDate() {
-      const today = new Date();
-      const [year, month, day] = formBody.checkIn
-        ? formBody.checkIn.split("-")
-        : [
-            today.getFullYear().toString(),
-            (today.getMonth() + 1).toString(),
-            today.getDate().toString(),
-          ];
+      const [year, month, day] =
+        checkIn !== "" ? checkIn.split("-") : today.split("-");
 
       const newDate = new Date(year, Number(month) - 1, day);
 
-      const checkOutMinDate = format(add(newDate, { days: 1 }), "yyyy-MM-dd");
-
-      setCheckOutMinDate(checkOutMinDate);
+      setCheckOutMinDate(format(add(newDate, { days: 1 }), "yyyy-MM-dd"));
     }
 
-    handleCheckInMaxDate();
     handleCheckOutMinDate();
-  }, [formBody]);
+  }, [checkIn, today]);
 
-  function handleFormSubmit(e) {
-    e.preventDefault();
+  function handleFormSubmit() {
+    setLoading(true);
 
-    const { checkIn, checkOut, numOfGuest } = e.target;
+    const url =
+      import.meta.env.VITE_URL_BASE +
+      "/rates-and-availability/check/" +
+      propertyId +
+      "-" +
+      checkIn +
+      "-" +
+      checkOut +
+      "-" +
+      numOfGuest;
+    const options = {
+      mode: "cors",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    };
+    console
+      .log(url, options)
+      .then(response => {
+        if (response.status === 204) {
+          throw new Error(
+            "Lo siento, no hay cuartos disponibles para las fechas seleccionadas"
+          );
+        }
+        if (response.status >= 400) {
+          throw new Error("Server Error");
+        }
 
-    setFormBody({
-      ...formBody,
-      checkIn: checkIn.value,
-      checkOut: checkOut.value,
-      numOfGuest: numOfGuest.value,
-    });
-
-    setIndex(2);
+        return response.json();
+      })
+      .then(response => setRoomTypeList(response))
+      .catch(e => setError(e))
+      .finally(() => {
+        setLoading(false);
+        setIndex(2);
+      });
   }
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -66,9 +80,9 @@ export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
           name="checkIn"
           id="checkIn"
           min={today}
-          max={checkInMaxDate}
           required
           aria-required
+          onChange={e => setCheckIn(e.target.value)}
         />
       </div>
       <div className={styles.formField}>
@@ -80,6 +94,7 @@ export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
           required
           aria-required
           min={checkOutMinDate}
+          onChange={e => setCheckOut(e.target.value)}
         />
       </div>
       <div className={styles.formField}>
@@ -91,6 +106,7 @@ export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
           required
           aria-required
           min={1}
+          onChange={e => setNumOfGuest(e.target.value)}
         />
       </div>
       <div>
@@ -98,12 +114,14 @@ export default function AvailabilityForm({ formBody, setFormBody, setIndex }) {
           Buscar disponibilidad
         </button>
       </div>
+      <div className={styles.error}>{error}</div>
     </form>
   );
 }
 
 AvailabilityForm.propTypes = {
-  formBody: PropTypes.object.isRequired,
-  setFormBody: PropTypes.func.isRequired,
+  dates: PropTypes.object.isRequired,
+  setDates: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
+  propertyId: PropTypes.string.isRequired,
 };

@@ -9,22 +9,18 @@ import { useEffect, useState } from "react";
 export default function SearchResult() {
   const [index, setIndex] = useState(1);
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
-  const [formBody, setFormBody] = useState({
+  const [dates, setDates] = useState({
     checkIn: "",
     checkOut: "",
-    numOfGuest: "",
   });
 
   const [numberOfNights, setNumberOfNights] = useState(0);
   const [availableRoomTypes, setAvailableRoomTypes] = useState([]);
   const totalSteps = 4;
+  const propertyId = "1234";
 
-  useEffect(() => {
+  /*   useEffect(() => {
     function fetchAvailability() {
-      // Cuando el usuario hace click en buscar disponibilidad se modifica el objeto formBody
-      // Al modificase formBody, se dispara este useEffect que debe realizar un fetch al servidor buscando disponibilidad
-      // Si hay disponibilidad devuelve una lista con los tipos de cuartos disponibles
-
       if (formBody.checkIn !== "") {
         setAvailableRoomTypes([
           {
@@ -123,7 +119,7 @@ export default function SearchResult() {
 
     fetchAvailability();
     calculateNumberOfNights();
-  }, [formBody]);
+  }, [formBody]); */
 
   const propertyInfo = {
     _id: "property001",
@@ -148,9 +144,10 @@ export default function SearchResult() {
         <section className={styles.searchDisplay}>
           {index === 1 && (
             <AvailabilityForm
-              formBody={formBody}
-              setFormBody={setFormBody}
+              dates={dates}
+              setDates={setDates}
               setIndex={setIndex}
+              propertyId={propertyId}
             />
           )}
 
@@ -167,7 +164,7 @@ export default function SearchResult() {
             <Booking
               setIndex={setIndex}
               propertyInfo={propertyInfo}
-              formBody={formBody}
+              /* formBody={formBody} */
               numberOfNights={numberOfNights}
               selectedNumGuest={selectedNumGuest}
               availableRoomTypes={availableRoomTypes}
