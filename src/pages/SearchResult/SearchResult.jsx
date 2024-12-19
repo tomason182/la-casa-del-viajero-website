@@ -11,6 +11,8 @@ export default function SearchResult() {
   const [roomTypeList, setRoomTypeList] = useState([]);
   const [selectedNumGuest, setSelectedNumOfGuest] = useState({});
   const [numberOfNights, setNumberOfNights] = useState(0);
+  const [checkIn, setCheckIn] = useState("");
+  const [checkOut, setCheckOut] = useState("");
   const totalSteps = 4;
   const propertyId = "6723e33fc4b3cd67d79f1849";
 
@@ -41,6 +43,10 @@ export default function SearchResult() {
               setIndex={setIndex}
               propertyId={propertyId}
               setNumberOfNights={setNumberOfNights}
+              checkIn={checkIn}
+              checkOut={checkOut}
+              setCheckIn={setCheckIn}
+              setCheckOut={setCheckOut}
             />
           )}
 
@@ -57,10 +63,11 @@ export default function SearchResult() {
             <Booking
               setIndex={setIndex}
               propertyInfo={propertyInfo}
-              /* formBody={formBody} */
+              checkIn={checkIn}
+              checkOut={checkOut}
               numberOfNights={numberOfNights}
               selectedNumGuest={selectedNumGuest}
-              availableRoomTypes={availableRoomTypes}
+              availableRoomTypes={roomTypeList}
             />
           )}
         </section>

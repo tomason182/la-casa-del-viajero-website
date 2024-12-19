@@ -6,7 +6,8 @@ import PropTypes from "prop-types";
 export default function Booking({
   setIndex,
   propertyInfo,
-  formBody,
+  checkIn,
+  checkOut,
   numberOfNights,
   selectedNumGuest,
   availableRoomTypes,
@@ -53,11 +54,11 @@ export default function Booking({
           <h4>Detalle de la reserva</h4>
           <p>
             <span>Entrada:</span>
-            <span>{formBody.checkIn}</span>
+            <span>{checkIn}</span>
           </p>
           <p>
             <span>Salida:</span>
-            <span>{formBody.checkOut}</span>
+            <span>{checkOut}</span>
           </p>
           <p>
             <span>Duración de la estadia:</span>
@@ -133,7 +134,9 @@ export default function Booking({
 Booking.propTypes = {
   setIndex: PropTypes.func.isRequired,
   propertyInfo: PropTypes.object.isRequired,
-  formBody: PropTypes.object.isRequired,
+  checkIn: PropTypes.string.isRequired,
+  checkOut: PropTypes.string.isRequired,
+  numberOfNights: PropTypes.number.isRequired,
   selectedNumGuest: PropTypes.object.isRequired,
   availableRoomTypes: PropTypes.array.isRequired,
 };

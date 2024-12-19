@@ -8,13 +8,15 @@ export default function AvailabilityForm({
   setIndex,
   propertyId,
   setNumberOfNights,
+  checkIn,
+  checkOut,
+  setCheckIn,
+  setCheckOut,
 }) {
   const today = new Date().toISOString().split("T")[0];
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
   const [numOfGuest, setNumOfGuest] = useState("");
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
 
@@ -161,4 +163,8 @@ AvailabilityForm.propTypes = {
   setIndex: PropTypes.func.isRequired,
   propertyId: PropTypes.string.isRequired,
   setNumberOfNights: PropTypes.func.isRequired,
+  checkIn: PropTypes.string.isRequired,
+  checkOut: PropTypes.string.isRequired,
+  setCheckIn: PropTypes.func.isRequired,
+  setCheckOut: PropTypes.func.isRequired,
 };
