@@ -47,8 +47,9 @@ export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
       },
       credentials: "include",
     };
-    console
-      .log(url, options)
+    console.log(url, options);
+
+    fetch(url, options)
       .then(response => {
         if (response.status === 204) {
           throw new Error(
