@@ -1,17 +1,46 @@
 import styles from "./AvailabilityForm.module.css";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { format, add, sub } from "date-fns";
+import { format, add } from "date-fns";
 
-export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
+export default function AvailabilityForm({
+  setRoomTypeList,
+  setIndex,
+  propertyId,
+  setNumberOfNights,
+}) {
   const today = new Date().toISOString().split("T")[0];
-  const [roomTypeList, setRoomTypeList] = useState([]);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [numOfGuest, setNumOfGuest] = useState("");
   const [checkOutMinDate, setCheckOutMinDate] = useState("");
+
+  useEffect(() => {
+    function calculateNumberOfNights() {
+      if (checkIn !== "" && checkOut !== "") {
+        const [checkInYear, checkInMonth, checkInDate] = checkIn.split("-");
+        const [checkOutYear, checkOutMonth, checkOutDate] = checkOut.split("-");
+        const checkInFormatted = new Date(
+          checkInYear,
+          checkInMonth - 1,
+          checkInDate
+        );
+        const checkOutFormatted = new Date(
+          checkOutYear,
+          checkOutMonth - 1,
+          checkOutDate
+        );
+
+        const nights =
+          (checkOutFormatted - checkInFormatted) / (1000 * 3600 * 24);
+        setNumberOfNights(nights);
+      }
+    }
+    calculateNumberOfNights();
+  }, [checkIn, checkOut, setNumberOfNights]);
 
   useEffect(() => {
     function handleCheckOutMinDate() {
@@ -29,14 +58,17 @@ export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
   function handleFormSubmit() {
     setLoading(true);
 
+    const formattedCheckIn = checkIn.split("-").join("");
+    const formattedCheckOut = checkOut.split("-").join("");
+
     const url =
       import.meta.env.VITE_URL_BASE +
       "/rates-and-availability/check/" +
       propertyId +
       "-" +
-      checkIn +
+      formattedCheckIn +
       "-" +
-      checkOut +
+      formattedCheckOut +
       "-" +
       numOfGuest;
     const options = {
@@ -47,7 +79,7 @@ export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
       },
       credentials: "include",
     };
-    console.log(url, options);
+    console.log(url);
 
     fetch(url, options)
       .then(response => {
@@ -55,18 +87,22 @@ export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
           throw new Error(
             "Lo siento, no hay cuartos disponibles para las fechas seleccionadas"
           );
-        }
-        if (response.status >= 400) {
+        } else if (response.status === 406) {
+          throw new Error("¿Que estas intentando hacer Pascual?");
+        } else if (response.status >= 400) {
           throw new Error("Server Error");
         }
 
         return response.json();
       })
-      .then(response => setRoomTypeList(response))
-      .catch(e => setError(e))
+      .then(response => {
+        console.log("response: ", response);
+        setRoomTypeList([...response]);
+        setIndex(2);
+      })
+      .catch(e => setError(e.message))
       .finally(() => {
         setLoading(false);
-        setIndex(2);
       });
   }
 
@@ -121,8 +157,8 @@ export default function AvailabilityForm({ setDates, setIndex, propertyId }) {
 }
 
 AvailabilityForm.propTypes = {
-  dates: PropTypes.object.isRequired,
-  setDates: PropTypes.func.isRequired,
+  setRoomTypeList: PropTypes.func.isRequired,
   setIndex: PropTypes.func.isRequired,
   propertyId: PropTypes.string.isRequired,
+  setNumberOfNights: PropTypes.func.isRequired,
 };

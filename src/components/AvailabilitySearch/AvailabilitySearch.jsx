@@ -68,7 +68,8 @@ export default function AvailabilitySearch({
           <div className={styles.description}>
             <h3>{r.description}</h3>
             <ul>
-              {r.amenities.map((amenity, index) => (
+              <p>amenities aca</p>
+              {/*               {r.amenities.map((amenity, index) => (
                 <li key={index}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +86,7 @@ export default function AvailabilitySearch({
                   </svg>
                   {amenity}
                 </li>
-              ))}
+              ))} */}
             </ul>
           </div>
           <div className={styles.priceContainer}>
