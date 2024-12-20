@@ -19,7 +19,9 @@ export default function StepIndicator({ totalSteps, currentStep, setIndex }) {
                     : "#ccc",
                 cursor: stepNumber < currentStep ? "pointer" : "not-allowed",
               }}
-              onClick={() => stepNumber < currentStep && setIndex(stepNumber)}
+              onClick={
+                stepNumber < currentStep ? () => setIndex(stepNumber) : null
+              }
             >
               {stepNumber}
             </div>
