@@ -35,7 +35,11 @@ export default function SearchResult() {
     <>
       <Header />
       <main>
-        <StepIndicator totalSteps={totalSteps} currentStep={index} />
+        <StepIndicator
+          totalSteps={totalSteps}
+          currentStep={index}
+          setIndex={setIndex}
+        />
         <section className={styles.searchDisplay}>
           {index === 1 && (
             <AvailabilityForm

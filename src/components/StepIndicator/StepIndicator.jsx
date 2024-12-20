@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function StepIndicator({ totalSteps, currentStep }) {
+export default function StepIndicator({ totalSteps, currentStep, setIndex }) {
   return (
     <div style={styles.container}>
       {Array.from({ length: totalSteps }, (_, index) => {
@@ -17,7 +17,9 @@ export default function StepIndicator({ totalSteps, currentStep }) {
                     : stepNumber < currentStep
                     ? "#28a745"
                     : "#ccc",
+                cursor: stepNumber < currentStep ? "pointer" : "not-allowed",
               }}
+              onClick={() => stepNumber < currentStep && setIndex(stepNumber)}
             >
               {stepNumber}
             </div>
@@ -45,7 +47,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    margin: "1.25 rem 0",
+    margin: "1rem 0",
   },
   stepContainer: {
     display: "flex",
@@ -62,6 +64,9 @@ const styles = {
     fontWeight: "bold",
     fontSize: "1rem",
   },
+  active: {
+    cursor: "pointer",
+  },
   line: {
     minWidth: "150px",
     height: "2px",
@@ -71,4 +76,5 @@ const styles = {
 StepIndicator.propTypes = {
   totalSteps: PropTypes.number.isRequired,
   currentStep: PropTypes.number.isRequired,
+  setIndex: PropTypes.func.isRequired,
 };

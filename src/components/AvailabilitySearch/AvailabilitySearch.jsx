@@ -1,5 +1,10 @@
 import styles from "./AvailabilitySearch.module.css";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import casita_1 from "../../assets/images/cuartos/casita_1.png";
+import casita_2 from "../../assets/images/cuartos/casita_2.png";
+import casita_3 from "../../assets/images/cuartos/casita_3.png";
+import casita_4 from "../../assets/images/cuartos/casita_4.png";
 
 export default function AvailabilitySearch({
   selectedNumGuest,
@@ -8,6 +13,9 @@ export default function AvailabilitySearch({
   numberOfNights,
   setIndex,
 }) {
+  //Estas imagenes deberian venir en el objeto tipo de cuarto y ser tomadas desde ahi.
+  const casitaList = [casita_1, casita_2, casita_3, casita_4];
+
   function handleGuestSelection(e) {
     e.preventDefault();
     const { name, value } = e.target;
@@ -63,13 +71,14 @@ export default function AvailabilitySearch({
       return (
         <div key={r._id} className={styles.roomContainer}>
           <div className={styles.imageSlider}>
-            <h1>Imagenes de cuartos</h1>
+            <Carousel images={casitaList} />
           </div>
-          <div className={styles.description}>
-            <h3>{r.description}</h3>
-            <ul>
-              <p>amenities aca</p>
-              {/*               {r.amenities.map((amenity, index) => (
+          <div className={styles.hostelInfo}>
+            <div className={styles.description}>
+              <h3>{r.description}</h3>
+              <ul>
+                <p>amenities aca</p>
+                {/*               {r.amenities.map((amenity, index) => (
                 <li key={index}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,20 +96,24 @@ export default function AvailabilitySearch({
                   {amenity}
                 </li>
               ))} */}
-            </ul>
-          </div>
-          <div className={styles.priceContainer}>
-            <div className={styles.priceDetail}>
-              <p>us${r.base_rate * numberOfNights}</p>
-              <span>Precio para {numberOfNights} noches</span>
-              <span>
-                {r.type === "dorm"
-                  ? "1 persona"
-                  : `${r.max_occupancy} personas`}
-              </span>
+              </ul>
             </div>
-            <div className={styles.bedSelection}>
-              {renderBedsOptions(r.availability, r._id)}
+            <div className={styles.priceContainer}>
+              <div className={styles.priceDetail}>
+                <p>us${r.base_rate * numberOfNights}</p>
+                <span>
+                  Precio para {numberOfNights}{" "}
+                  {numberOfNights === 1 ? "noche" : "noches"}
+                </span>
+                <span>
+                  {r.type === "dorm"
+                    ? "1 persona"
+                    : `${r.max_occupancy} personas`}
+                </span>
+              </div>
+              <div className={styles.bedSelection}>
+                {renderBedsOptions(r.availability, r._id)}
+              </div>
             </div>
           </div>
         </div>
@@ -158,4 +171,72 @@ AvailabilitySearch.propTypes = {
   availableRoomTypes: PropTypes.array.isRequired,
   numberOfNights: PropTypes.number.isRequired,
   setIndex: PropTypes.func.isRequired,
+  roomImages: PropTypes.array.isRequired,
+};
+
+const Carousel = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  function handlePrev() {
+    setCurrentIndex(prevIndex =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
+  }
+
+  function handleNext() {
+    setCurrentIndex(prevIndex =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  }
+
+  return (
+    <div className={styles.carousel}>
+      <button className={styles.arrowLeft} onClick={handlePrev}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#f5f5f5"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button className={styles.arrowRight} onClick={handleNext}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#f5f5f5"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`Slide ${index}`}
+          style={{
+            opacity: index === currentIndex ? 1 : 0,
+            display: index === currentIndex ? "block" : "none",
+            transition: "opacity 0.5s ease, visibility 0.5s ease",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+Carousel.propTypes = {
+  images: PropTypes.array.isRequired,
 };

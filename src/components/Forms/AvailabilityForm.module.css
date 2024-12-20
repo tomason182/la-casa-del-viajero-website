@@ -44,4 +44,9 @@ form {
   background-color: #415a77;
   display: inline-block;
   min-width: 200px;
+  cursor: pointer;
+}
+
+.form .btn:hover {
+  opacity: 0.9;
 }
