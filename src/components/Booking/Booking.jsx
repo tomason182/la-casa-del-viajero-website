@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Booking.module.css";
 import countryCodes from "../../utils/mockedData/countryCode.json";
 import PropTypes from "prop-types";
@@ -13,12 +13,28 @@ export default function Booking({
   availableRoomTypes,
 }) {
   const [selectedCode, setSelectedCode] = useState("");
+  const [selectedPhoneCode, setSelectedPhoneCode] = useState("");
+
+  useEffect(() => {
+    function defaultPhoneSelection() {
+      setSelectedPhoneCode(selectedCode);
+    }
+
+    defaultPhoneSelection();
+  }, [selectedCode]);
 
   function handleCodeSelection(e) {
     e.preventDefault();
 
     const value = e.target.value;
     setSelectedCode(value);
+  }
+
+  function handlePhoneSelection(e) {
+    e.preventDefault();
+
+    const value = e.target.value;
+    setSelectedPhoneCode(value);
   }
 
   let totalAmount = 0;
@@ -114,7 +130,8 @@ export default function Booking({
                 <select
                   className="countryCode"
                   name="countryCode"
-                  value={selectedCode}
+                  value={selectedPhoneCode}
+                  onChange={handlePhoneSelection}
                 >
                   {countryCodes.map(country => (
                     <option key={country.value} value={country.value}>
