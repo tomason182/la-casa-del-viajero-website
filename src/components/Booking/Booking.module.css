@@ -45,7 +45,7 @@
 .guestForm label,
 .guestForm fieldset {
   width: 80%;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-align: left;
 }
 
@@ -54,4 +54,36 @@
   width: 100%;
   padding: 0.5rem;
   margin-top: 5px;
+  border: 1px solid #ccc;
+}
+
+.listOfCountries {
+  appearance: none;
+  width: 100%;
+  background: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.phoneFieldset {
+  padding: 0.25rem 0.5rem;
+}
+
+.phoneContainer {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.phoneContainer label:first-child {
+  flex: 1;
+  min-width: 5rem;
+}
+
+.countryCodes {
+  padding: 0;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
 }

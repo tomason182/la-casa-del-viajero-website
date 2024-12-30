@@ -15,6 +15,8 @@ export default function Booking({
   const [selectedCode, setSelectedCode] = useState("");
   const [selectedPhoneCode, setSelectedPhoneCode] = useState("");
 
+  console.log(selectedPhoneCode);
+
   useEffect(() => {
     function defaultPhoneSelection() {
       setSelectedPhoneCode(selectedCode);
@@ -123,25 +125,30 @@ export default function Booking({
               ))}
             </select>
           </label>
-          <fieldset>
+          <fieldset className={styles.phoneFieldset}>
             <legend>Numero de telefono</legend>
-            <div>
+            <div className={styles.phoneContainer}>
               <label>
                 <select
-                  className="countryCode"
+                  className={styles.countryCodes}
                   name="countryCode"
                   value={selectedPhoneCode}
                   onChange={handlePhoneSelection}
                 >
                   {countryCodes.map(country => (
                     <option key={country.value} value={country.value}>
-                      {country.label} {country.code}
+                      {country.value.toUpperCase()} {country.code}
                     </option>
                   ))}
                 </select>
               </label>
+              <label>
+                <input type="text" name="phoneNumber" />
+              </label>
             </div>
           </fieldset>
+
+          <button className={styles.btn}>Reservar</button>
         </form>
       </div>
     </div>
