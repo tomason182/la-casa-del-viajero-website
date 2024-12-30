@@ -15,8 +15,6 @@ export default function Booking({
   const [selectedCode, setSelectedCode] = useState("");
   const [selectedPhoneCode, setSelectedPhoneCode] = useState("");
 
-  console.log(selectedPhoneCode);
-
   useEffect(() => {
     function defaultPhoneSelection() {
       setSelectedPhoneCode(selectedCode);
